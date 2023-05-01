@@ -5,16 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Person implements Serializable {
+    private int id;
     private String lastName;
     private String firstName;
     private int yearBithday;
     private Gender gender;
     private Person father;
     private Person mother;
-    
     List<Person> children;
     
-    public Person(String lastName, String firstName, int yearBithday, Gender gender, Person father, Person mother) {
+    public Person(int id, String lastName, String firstName, int yearBithday, Gender gender, Person father, Person mother) {
+        this.id = id;
         this.lastName = lastName;
         this.firstName = firstName;
         this.yearBithday = yearBithday;
@@ -23,6 +24,7 @@ public class Person implements Serializable {
         this.mother = mother;
         this.children = new ArrayList<>();
     }
+    public int getId() { return id; }
     public String getLastName() { return lastName; }
     public String getFirstName() { return firstName; }
     public int getYearBithday() { return yearBithday; }
@@ -80,7 +82,7 @@ public class Person implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Person => [" + lastName + " " + firstName + " " + yearBithday + ", " + putGender());
+        sb.append("Person => [id" + id + ", " + lastName + " " + firstName + " " + yearBithday + ", " + putGender());
         sb.append(", " + getFatherInfo() + ", " + getMotherInfo());
         sb.append(getChildrenInfo());
         sb.append("]");
