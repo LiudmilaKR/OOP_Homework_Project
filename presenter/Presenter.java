@@ -8,13 +8,13 @@ public class Presenter {
     View view;
     Service service;
 
-    public Presenter(View view, Service service) {
+    public Presenter(View view, String path) {
         this.view = view;
-        this.service = service;
+        service = new Service(path);
     }
     public void initTree() {
-        service.newFamilyTree();
-        service.saveToFile();
+        // service.newFamilyTree();
+        service.saveToFile(service.newFamilyTree());
     }
     public FamilyTree takeTree() {
         return service.takeFromFile();
@@ -22,7 +22,7 @@ public class Presenter {
     public void addPersonToTree(int g, String sn, String fn, int yb) {
         service.addPersToTree(g, sn, fn, yb);
     }
-    public void delPersonFromTree(String sn, int yb) {
-        service.delPersFromTree(sn, yb);
+    public void delPersonFromTree(int id) {
+        service.delPersFromTree(id);
     }
 }

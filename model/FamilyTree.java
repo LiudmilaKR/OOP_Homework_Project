@@ -24,7 +24,14 @@ public class FamilyTree implements Serializable, Iterable<Person> {
             return true;
         }
     }
-
+    public boolean removeFromFamilyTree(Person person){
+        if (person.equals(null)) return false;
+        if (familyTree.contains(person)) {
+            familyTree.remove(person);
+            return true;
+        } else return false;
+    }
+    
     // @Override
     // public String toString() {
     //     StringBuilder sb = new StringBuilder();

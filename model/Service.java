@@ -3,23 +3,24 @@ package HomeworksAdd.HWProjectOOP.model;
 public class Service {
     FamilyTree ft;
     private String path;
+    private Writable handler;
+    private int id;
 
     public Service(String path) {
         this.path = path;
-        ft = new FamilyTree();
+        this.id += 1;
+        handler = new FileHandler();
+        // ft = new FamilyTree();
+        ft = takeFromFile();
     }
 
-    public void saveToFile() {
-        sortByYearBirsday();
-        for (Person person : ft) {
-            FileHandler fh = new FileHandler();
-            fh.putToFile(person, path);
-        }
+    public void saveToFile(FamilyTree familyTree) {
+        // sortByYearBirsday();
+        handler.putToFile(familyTree, path);
     }
     public FamilyTree takeFromFile() {
-        FileHandler fh = new FileHandler();
-        Person person = (Person) fh.loadFromFile(path);
-        ft.addToFamilyTree(person);
+        // ft = new FamilyTree();
+        ft = (FamilyTree) handler.loadFromFile(path);
         return ft;
     }
     public void sortByYearBirsday() {
@@ -29,36 +30,36 @@ public class Service {
         ft.getFamilyTree().sort(new PersonComparatorByName());
     }
     public void addPersToTree(int g, String sn, String fn, int yb) {
-        Person person = new Person(sn, fn, yb, null, null, null);
+        Person person = new Person(++id, sn, fn, yb, null, null, null);
         if (g == 1) person.setGender(Gender.Male);
         else person.setGender(Gender.Female);
-        FileHandler fh = new FileHandler();
-        fh.putToFile(person, path);
+        ft.addToFamilyTree(person);
+        saveToFile(ft);
     }
-    public void delPersFromTree(String sn, int yb) {
-        // Person person = new Person(sn, sn, 0, null, null, null);
+    public void delPersFromTree(int i) {
         for (Person pers : ft) {
-            if (pers.getLastName().equals(sn) && (pers.getYearBithday() == yb)) ft.getFamilyTree().remove(pers);
+            if (pers.getId() == i) ft.removeFromFamilyTree(pers);
         }
+        saveToFile(ft);
     }
     public FamilyTree newFamilyTree() {
-        Person person1 = new Person("Иванов", "Петр", 1962, Gender.Male, null, null);
-        Person person2 = new Person("Иванова", "Наталья", 1965, Gender.Female, null, null);
-        Person person3 = new Person("Иванов", "Егор", 1986, Gender.Male, person1, person2);
-        Person person4 = new Person("Иванов", "Сергей", 1990, Gender.Male, person1, person2);
-        Person person7 = new Person("Григорьев", "Петр", 1968, Gender.Male, null, null);
-        Person person8 = new Person("Григорьева", "Алина", 1971, Gender.Female, null, null);
-        Person person5 = new Person("Иванова", "Марина", 1990, Gender.Female, person7, person8);
-        Person person6 = new Person("Иванов", "Алексей", 2022, Gender.Male, person3, person5);
-        // FamilyTree familyTree1 = new FamilyTree();
-        ft.addToFamilyTree(person1);
-        ft.addToFamilyTree(person2);
-        ft.addToFamilyTree(person3);
-        ft.addToFamilyTree(person4);
-        ft.addToFamilyTree(person5);
-        ft.addToFamilyTree(person6);
-        ft.addToFamilyTree(person7);
-        ft.addToFamilyTree(person8);
-        return ft;
+        Person person1 = new Person(91, "Иванов", "Петр", 1962, Gender.Male, null, null);
+        Person person2 = new Person(92, "Иванова", "Наталья", 1965, Gender.Female, null, null);
+        Person person3 = new Person(93, "Иванов", "Егор", 1986, Gender.Male, person1, person2);
+        Person person4 = new Person(94, "Иванов", "Сергей", 1990, Gender.Male, person1, person2);
+        Person person7 = new Person(95, "Григорьев", "Петр", 1968, Gender.Male, null, null);
+        Person person8 = new Person(96, "Григорьева", "Алина", 1971, Gender.Female, null, null);
+        Person person5 = new Person(97, "Иванова", "Марина", 1990, Gender.Female, person7, person8);
+        Person person6 = new Person(98, "Иванов", "Алексей", 2022, Gender.Male, person3, person5);
+        FamilyTree familyTree = new FamilyTree();
+        familyTree.addToFamilyTree(person1);
+        familyTree.addToFamilyTree(person2);
+        familyTree.addToFamilyTree(person3);
+        familyTree.addToFamilyTree(person4);
+        familyTree.addToFamilyTree(person5);
+        familyTree.addToFamilyTree(person6);
+        familyTree.addToFamilyTree(person7);
+        familyTree.addToFamilyTree(person8);
+        return familyTree;
     }
 }
