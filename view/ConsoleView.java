@@ -17,42 +17,31 @@ public class ConsoleView implements View {
     public void start() {
         System.out.println("Начало работы.");
         presenter = new Presenter(this, "HomeworksAdd/HWProjectOOP/model/Tree.out");
+        Menu menu = new Menu();
         work = true;
         int point = 0;
         while (work) {
-            System.out.println("Выберите действие:\n1.Инициация изначального дерева\n" + 
-                        "2.Вывод текущего дерева на консоль\n" + "3.Добавление человека в дерево\n" + 
-                        "4.Удаление человека из дерева\n" + "5.Выход");
+            System.out.println(menu);
             point = scan.nextInt();
-            switch (point) {
-                case (1):
-                    initialTree();
-                break;
-                case (2):
-                    printTree();
-                    break;
-                case (3):
-                    addToTree();
-                    break;
-                case (4):
-                    delFromTree();
-                    break;
-                case (5):
+            if (point < 1 || point > (menu.getMenuSize() + 1)) {
+                System.out.println("Выбор некорректен. Попробуйте ещё раз!");
+            } else {    
+            
+                if (point == (menu.getMenuSize() + 1)) {
                     exit();
-                    break;
-                default:
-                    System.out.println("Выбор некорректен. Попробуйте ещё раз!");
-                    break;
+                    work = false;
+                } 
+                else menu.perform(point, this);
             }
         }
     }
     
-    private void initialTree() {
+    public void initialTree() {
         presenter.initTree();
         System.out.println("Дерево инициализировано, для просмотра дерева выберите пункт 2.");
         System.out.println();
     }
-    private void printTree() {
+    public void printTree() {
         if (presenter.takeTree() == null) System.out.println("Требуется инициация дерева.");
         else {
             System.out.println("Текущее дерево =>");
@@ -62,22 +51,22 @@ public class ConsoleView implements View {
         }
         System.out.println();
     }
-    private void addToTree() {
+    public void addToTree() {
         System.out.println("Выберите пол добавляемого человека: 1 - мужской, 2 - женский => ");
-        int g = scan.nextInt();
+        int gender = scan.nextInt();
         System.out.print("Введите фамилию человека => ");
         scan.nextLine();
-        String sn = scan.nextLine();
+        String sername = scan.nextLine();
         System.out.print("Введите имя человека => ");
         // scan.nextLine();
-        String fn = scan.nextLine();
+        String firstname = scan.nextLine();
         System.out.print("Введите год рождения человека => ");
-        int yb = scan.nextInt();
-        presenter.addPersonToTree(g, sn, fn, yb);
+        int yearbirth = scan.nextInt();
+        presenter.addPersonToTree(gender, sername, firstname, yearbirth);
         System.out.println("Человек добавлен.");
         System.out.println();
     }
-    private void delFromTree() {
+    public void delFromTree() {
         System.out.print("Введите id человека, которого хотим удалить => ");
         int id = scan.nextInt();
         presenter.delPersonFromTree(id);
@@ -87,6 +76,6 @@ public class ConsoleView implements View {
     private void exit(){
         System.out.println("Завершение работы.");
         // scan.close();
-        work = false;
+        // work = false;
     }
 }
