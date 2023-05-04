@@ -19,8 +19,8 @@ public class Presenter {
     public FamilyTree takeTree() {
         return service.takeFromFile();
     }
-    public void addPersonToTree(int g, String sn, String fn, int yb) {
-        service.addPersToTree(g, sn, fn, yb);
+    public void addPersonToTree(int gender, String sername, String firstname, int yearbirth) {
+        service.addPersToTree(gender, sername, firstname, yearbirth);
     }
     public void delPersonFromTree(int id) {
         service.delPersFromTree(id);

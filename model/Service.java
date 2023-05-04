@@ -8,14 +8,14 @@ public class Service {
 
     public Service(String path) {
         this.path = path;
-        this.id += 1;
+        this.id = 1;
         handler = new FileHandler();
         // ft = new FamilyTree();
         ft = takeFromFile();
     }
 
     public void saveToFile(FamilyTree familyTree) {
-        // sortByYearBirsday();
+        sortByYearBirsday();
         handler.putToFile(familyTree, path);
     }
     public FamilyTree takeFromFile() {
@@ -29,9 +29,12 @@ public class Service {
     public void sortByName() {
         ft.getFamilyTree().sort(new PersonComparatorByName());
     }
-    public void addPersToTree(int g, String sn, String fn, int yb) {
-        Person person = new Person(++id, sn, fn, yb, null, null, null);
-        if (g == 1) person.setGender(Gender.Male);
+    public void addPersToTree(int gender, String sername, String firstname, int yearbirth) {
+        for (Person per : ft) {
+            if (per.getId() > id) id = per.getId() + 3;
+        }
+        Person person = new Person(id, sername, firstname, yearbirth, null, null, null);
+        if (gender == 1) person.setGender(Gender.Male);
         else person.setGender(Gender.Female);
         ft.addToFamilyTree(person);
         saveToFile(ft);

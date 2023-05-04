@@ -70,7 +70,7 @@ public class Person implements Serializable {
     public String getMotherInfo() {
         StringBuilder sb = new StringBuilder();
         sb.append("мать");
-        if (mother == null) sb.append(" отсутсвует");
+        if (mother == null) sb.append(" отсутствует");
         else {
             sb.append(" ");
             sb.append(mother.lastName);
@@ -82,7 +82,7 @@ public class Person implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Person => [id" + id + ", " + lastName + " " + firstName + " " + yearBithday + ", " + putGender());
+        sb.append("Person => [id=" + id + ", " + lastName + " " + firstName + " " + yearBithday + ", " + putGender());
         sb.append(", " + getFatherInfo() + ", " + getMotherInfo());
         sb.append(getChildrenInfo());
         sb.append("]");
